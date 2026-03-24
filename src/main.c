@@ -1,0 +1,82 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/13 17:32:12 by sofkhali          #+#    #+#             */
+/*   Updated: 2026/03/22 17:17:17 by sofkhali         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
+ 
+/*
+** run_line : chaine de traitement complete d'une ligne.
+**
+** Ordre critique :
+**   1. lexer()          : tokenise avec quotes intactes
+**   2. expand_tokens()  : expande $VAR/$? en respectant les quotes
+**                         (single quotes bloquent, double quotes permettent)
+**   3. remove_quotes()  : supprime les delimiteurs de quotes
+**   4. parse_line()     : construit la liste de t_cmd
+**   5. run_the_pipeline(): execute
+*/
+static void	run_line(char *line, t_shell *shell)
+{
+	t_token	*tokens;
+	t_cmd	*cmds;
+ 
+	tokens = lexer(line);
+	if (!tokens)
+		return ;
+	expand_tokens(tokens, shell);
+	remove_quotes(tokens);
+	cmds = parse_line(tokens);
+	free_tokens(tokens);
+	if (!cmds)
+		return ;
+	run_the_pipeline(cmds, shell);
+	free_cmd(cmds);
+}
+ 
+static void	shell_loop(t_shell *shell)
+{
+	char	*line;
+ 
+	while (1)
+	{
+		line = readline("minishell$ ");
+		if (!line)
+		{
+			write(1, "exit\n", 5);
+			break ;
+		}
+		if (*line)
+			add_history(line);
+		run_line(line, shell);
+		free(line);
+	}
+}
+ 
+int	main(int argc, char **argv, char **envp)
+{
+	t_shell	shell;
+ 
+	(void)argc;
+	(void)argv;
+	shell.env_list = env_init_from_envp(envp);
+	shell.last_exit_code = 0;
+	if (!shell.env_list)
+	{
+		write(2, "minishell: failed to init env\n", 30);
+		return (1);
+	}
+	init_shlvl(&shell);
+	shell_loop(&shell);
+	env_free_list(shell.env_list);
+	return (shell.last_exit_code);
+}
