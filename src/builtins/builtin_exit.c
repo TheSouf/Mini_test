@@ -6,16 +6,16 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:54:10 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/22 20:32:22 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:29:23 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
- 
+
 static int	is_numeric(char *str)
 {
 	int	i;
- 
+
 	i = 0;
 	if (!str || !str[0])
 		return (0);
@@ -31,7 +31,7 @@ static int	is_numeric(char *str)
 	}
 	return (1);
 }
- 
+
 static void	exit_non_numeric(char **args, t_shell *shell)
 {
 	write(2, "exit: ", 6);
@@ -40,11 +40,11 @@ static void	exit_non_numeric(char **args, t_shell *shell)
 	env_free_list(shell->env_list);
 	exit(2);
 }
- 
+
 int	builtin_exit(char **args, t_shell *shell)
 {
 	long	code;
- 
+
 	if (!args[1])
 	{
 		code = shell->last_exit_code;

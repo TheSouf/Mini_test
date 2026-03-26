@@ -6,16 +6,16 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 21:28:35 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/22 17:18:48 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:33:41 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
- 
+
 t_redir	*c_new_redir(t_token_type type, char *file)
 {
 	t_redir	*r;
- 
+
 	r = malloc(sizeof(t_redir));
 	if (!r)
 		return (NULL);
@@ -29,11 +29,11 @@ t_redir	*c_new_redir(t_token_type type, char *file)
 	r->next = NULL;
 	return (r);
 }
- 
+
 void	add_redir_back(t_redir **lst, t_redir *new)
 {
 	t_redir	*tmp;
- 
+
 	if (!new)
 		return ;
 	if (!*lst)
@@ -46,11 +46,11 @@ void	add_redir_back(t_redir **lst, t_redir *new)
 		tmp = tmp->next;
 	tmp->next = new;
 }
- 
+
 static int	open_infile(char *file)
 {
 	int	fd;
- 
+
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
@@ -60,12 +60,12 @@ static int	open_infile(char *file)
 	}
 	return (fd);
 }
- 
+
 static int	open_outfile(char *file, int append)
 {
 	int	fd;
 	int	flags;
- 
+
 	if (append)
 		flags = O_WRONLY | O_CREAT | O_APPEND;
 	else
@@ -79,18 +79,12 @@ static int	open_outfile(char *file, int append)
 	}
 	return (fd);
 }
- 
-/*
-** Applique les redirections.
-** ORDRE IMPORTANT : bash ouvre les outfiles AVANT les infiles.
-** Cela permet a "cat > outfile <missing" de creer outfile meme
-** si l'infile est absent.
-*/
+
 int	apply_the_redirs(t_redir *rd_in, t_redir *rd_out)
 {
 	int		fd;
 	t_redir	*r;
- 
+
 	r = rd_out;
 	while (r)
 	{

@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:54:01 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/20 18:24:14 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:29:10 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	builtin_env(char **args, t_shell *shell)
 {
 	t_env	*current;
- 
+
 	(void)args;
 	if (!shell || !shell->env_list)
 		return (0);

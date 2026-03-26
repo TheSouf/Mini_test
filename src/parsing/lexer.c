@@ -6,16 +6,16 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 18:59:57 by elibrahi          #+#    #+#             */
-/*   Updated: 2026/03/22 17:22:01 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:37:46 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
- 
+
 static void	skip_quoted(char *input, int *pos)
 {
 	char	quote;
- 
+
 	quote = input[*pos];
 	(*pos)++;
 	while (input[*pos] && input[*pos] != quote)
@@ -23,11 +23,11 @@ static void	skip_quoted(char *input, int *pos)
 	if (input[*pos] == quote)
 		(*pos)++;
 }
- 
+
 static char	*handle_word(char *input, int *pos)
 {
 	int	start;
- 
+
 	start = *pos;
 	while (input[*pos] && input[*pos] != ' ' && input[*pos] != '|'
 		&& input[*pos] != '<' && input[*pos] != '>')
@@ -39,12 +39,12 @@ static char	*handle_word(char *input, int *pos)
 	}
 	return (ft_substr(input, start, *pos - start));
 }
- 
+
 static int	check_unclosed_quote(char *input)
 {
 	int		i;
 	char	quote;
- 
+
 	i = 0;
 	while (input[i])
 	{
@@ -66,15 +66,11 @@ static int	check_unclosed_quote(char *input)
 	}
 	return (0);
 }
- 
-/*
-** Extrait le mot, cree le token, puis free le substr intermediaire.
-** Sans ce free, ft_substr leak a chaque token WORD.
-*/
+
 static void	add_word_token(t_token **tokens, char *input, int *i)
 {
 	char	*word;
- 
+
 	word = handle_word(input, i);
 	if (word)
 	{
@@ -82,12 +78,12 @@ static void	add_word_token(t_token **tokens, char *input, int *i)
 		free(word);
 	}
 }
- 
+
 t_token	*lexer(char *input)
 {
 	t_token	*tokens;
 	int		i;
- 
+
 	if (check_unclosed_quote(input))
 		return (NULL);
 	tokens = NULL;

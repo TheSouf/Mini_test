@@ -6,16 +6,16 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 22:13:44 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/22 17:21:26 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:36:59 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
- 
+
 char	*append_str(char *result, char *str)
 {
 	char	*tmp;
- 
+
 	if (!str)
 		return (result);
 	tmp = ft_strjoin(result, str);
@@ -23,25 +23,25 @@ char	*append_str(char *result, char *str)
 	free(str);
 	return (tmp);
 }
- 
+
 char	*append_char(char *result, char c)
 {
 	char	buf[2];
 	char	*tmp;
- 
+
 	buf[0] = c;
 	buf[1] = '\0';
 	tmp = ft_strjoin(result, buf);
 	free(result);
 	return (tmp);
 }
- 
+
 char	*get_var_value(char *input, int *i, t_shell *shell)
 {
 	int		start;
 	char	*name;
 	t_env	*node;
- 
+
 	if (input[*i] == '?')
 		return ((*i)++, ft_itoa(shell->last_exit_code));
 	start = *i;
@@ -58,7 +58,7 @@ char	*get_var_value(char *input, int *i, t_shell *shell)
 		return (ft_strdup(""));
 	return (ft_strdup(node->value));
 }
- 
+
 char	*handle_dollar(char *word, int *i, char *result, t_shell *shell)
 {
 	(*i)++;

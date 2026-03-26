@@ -6,16 +6,16 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 21:29:04 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/22 17:20:08 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:36:08 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
- 
+
 static void	close_all_pipes(int (*pipe_fds)[2], int n, int fd_read, int fd_write)
 {
 	int	i;
- 
+
 	i = 0;
 	while (i < n - 1)
 	{
@@ -26,13 +26,13 @@ static void	close_all_pipes(int (*pipe_fds)[2], int n, int fd_read, int fd_write
 		i++;
 	}
 }
- 
+
 void	run_child_processus(t_cmd *cmd, int i, int n,
 			int (*pipe_fds)[2], t_shell *shell)
 {
 	int	fd_read;
 	int	fd_write;
- 
+
 	if (i == 0)
 		fd_read = STDIN_FILENO;
 	else
@@ -54,7 +54,7 @@ void	run_child_processus(t_cmd *cmd, int i, int n,
 	}
 	execute_the_cmd(cmd, shell);
 }
- 
+
 int	get_exit_status(int status)
 {
 	if (WIFEXITED(status))
@@ -63,12 +63,12 @@ int	get_exit_status(int status)
 		return (128 + WTERMSIG(status));
 	return (EXIT_FAILURE);
 }
- 
+
 void	wait_the_processes(pid_t *pids, int n, t_shell *shell)
 {
 	int	i;
 	int	status;
- 
+
 	i = 0;
 	while (i < n)
 	{
@@ -78,12 +78,12 @@ void	wait_the_processes(pid_t *pids, int n, t_shell *shell)
 		i++;
 	}
 }
- 
+
 void	run_builtin_with_redirs(t_cmd *cmd, t_shell *shell)
 {
 	int	saved_in;
 	int	saved_out;
- 
+
 	saved_in = dup(STDIN_FILENO);
 	saved_out = dup(STDOUT_FILENO);
 	if (apply_the_redirs(cmd->rd_in, cmd->rd_out) < 0)

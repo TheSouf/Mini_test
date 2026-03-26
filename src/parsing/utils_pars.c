@@ -6,16 +6,16 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 15:17:20 by elibrahi          #+#    #+#             */
-/*   Updated: 2026/03/22 17:20:52 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:39:45 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
- 
+
 void	print_redirs(t_redir *lst, char *label)
 {
 	t_redir	*tmp;
- 
+
 	tmp = lst;
 	printf("%s:\n", label);
 	while (tmp)
@@ -24,11 +24,11 @@ void	print_redirs(t_redir *lst, char *label)
 		tmp = tmp->next;
 	}
 }
- 
+
 void	print_cmd(t_cmd *cmd)
 {
 	int	i;
- 
+
 	i = 0;
 	if (!cmd)
 	{
@@ -45,11 +45,11 @@ void	print_cmd(t_cmd *cmd)
 	print_redirs(cmd->rd_out, "output redirs");
 	printf("______________\n");
 }
- 
+
 void	free_redirs(t_redir *lst)
 {
 	t_redir	*next;
- 
+
 	while (lst)
 	{
 		next = lst->next;
@@ -59,15 +59,12 @@ void	free_redirs(t_redir *lst)
 		lst = next;
 	}
 }
- 
-/*
-** Libere toute la liste chainee de t_cmd.
-*/
+
 void	free_cmd(t_cmd *cmd)
 {
 	t_cmd	*next;
 	int		i;
- 
+
 	while (cmd)
 	{
 		next = cmd->next;
@@ -84,11 +81,11 @@ void	free_cmd(t_cmd *cmd)
 		cmd = next;
 	}
 }
- 
+
 int	syntax_error(t_token *tokens)
 {
 	t_token	*prev;
- 
+
 	if (!tokens)
 		return (0);
 	prev = NULL;

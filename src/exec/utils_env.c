@@ -6,16 +6,16 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 19:16:11 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/20 18:19:56 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:32:56 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
- 
+
 static t_env	*alloc_node(char *name)
 {
 	t_env	*new;
- 
+
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
@@ -29,11 +29,11 @@ static t_env	*alloc_node(char *name)
 	new->next = NULL;
 	return (new);
 }
- 
+
 t_env	*env_new_node(char *name, char *value)
 {
 	t_env	*new;
- 
+
 	new = alloc_node(name);
 	if (!new)
 		return (NULL);
@@ -48,11 +48,11 @@ t_env	*env_new_node(char *name, char *value)
 	}
 	return (new);
 }
- 
+
 void	env_add_back(t_env **lst, t_env *new)
 {
 	t_env	*cur;
- 
+
 	if (!lst || !new)
 		return ;
 	if (!*lst)
@@ -65,7 +65,7 @@ void	env_add_back(t_env **lst, t_env *new)
 		cur = cur->next;
 	cur->next = new;
 }
- 
+
 t_env	*env_find(t_env *lst, char *name)
 {
 	if (!lst || !name)
@@ -78,11 +78,11 @@ t_env	*env_find(t_env *lst, char *name)
 	}
 	return (NULL);
 }
- 
+
 void	env_free_list(t_env *lst)
 {
 	t_env	*next;
- 
+
 	while (lst)
 	{
 		next = lst->next;
@@ -93,4 +93,3 @@ void	env_free_list(t_env *lst)
 		lst = next;
 	}
 }
- 

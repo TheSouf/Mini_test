@@ -6,18 +6,18 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 21:34:58 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/18 21:43:24 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:32:18 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
- 
+
 static int	add_one(t_env **lst, char *raw)
 {
 	t_env	*node;
 	char	*eq;
 	char	*name;
- 
+
 	eq = ft_strchr(raw, '=');
 	if (!eq)
 		return (0);
@@ -31,12 +31,12 @@ static int	add_one(t_env **lst, char *raw)
 	env_add_back(lst, node);
 	return (0);
 }
- 
+
 t_env	*env_init_from_envp(char **envp)
 {
 	t_env	*lst;
 	int		i;
- 
+
 	lst = NULL;
 	i = 0;
 	while (envp[i])
@@ -50,11 +50,11 @@ t_env	*env_init_from_envp(char **envp)
 	}
 	return (lst);
 }
- 
+
 static int	count_valued(t_env *lst)
 {
 	int	n;
- 
+
 	n = 0;
 	while (lst)
 	{
@@ -64,12 +64,12 @@ static int	count_valued(t_env *lst)
 	}
 	return (n);
 }
- 
+
 static char	*make_entry(t_env *node)
 {
 	char	*tmp;
 	char	*entry;
- 
+
 	tmp = ft_strjoin(node->name, "=");
 	if (!tmp)
 		return (NULL);
@@ -77,12 +77,12 @@ static char	*make_entry(t_env *node)
 	free(tmp);
 	return (entry);
 }
- 
+
 char	**env_to_array(t_env *lst)
 {
 	char	**arr;
 	int		i;
- 
+
 	arr = malloc(sizeof(char *) * (count_valued(lst) + 1));
 	if (!arr)
 		return (NULL);

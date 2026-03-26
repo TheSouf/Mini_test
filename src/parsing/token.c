@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 04:17:42 by elibrahi          #+#    #+#             */
-/*   Updated: 2026/03/13 17:30:58 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:38:50 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@ t_token	*c_new_token(char *value, t_token_type type)
 	token->value = ft_strdup(value);
 	token->type = type;
 	token->next = NULL;
-	
 	return (token);
 }
 
 void	add_token(t_token **lst, t_token *new)
 {
 	t_token	*tmp_token;
-	
+
 	if (!*lst)
 	{
 		*lst = new;
@@ -44,7 +43,7 @@ void	add_token(t_token **lst, t_token *new)
 void	free_tokens(t_token *lst)
 {
 	t_token	*tmp_next;
-	
+
 	while (lst)
 	{
 		tmp_next = lst->next;

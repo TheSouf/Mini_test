@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:53:10 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/20 18:20:17 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:29:02 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	builtin_pwd(char **args, t_shell *shell)
 {
 	char	*cwd;
- 
+
 	(void)args;
 	(void)shell;
 	cwd = getcwd(NULL, 0);
@@ -29,4 +29,3 @@ int	builtin_pwd(char **args, t_shell *shell)
 	free(cwd);
 	return (0);
 }
- 

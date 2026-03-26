@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 18:02:25 by elibrahi          #+#    #+#             */
-/*   Updated: 2026/03/20 18:30:02 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:36:29 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_token	*cut_segment(t_token *tok, t_token **next)
 	tok->next = NULL;
 	return (tok);
 }
- 
+
 static int	chain_cmd(t_cmd **first, t_cmd **last, t_cmd *new)
 {
 	if (!new)
@@ -38,7 +38,7 @@ static int	chain_cmd(t_cmd **first, t_cmd **last, t_cmd *new)
 	*last = new;
 	return (0);
 }
- 
+
 t_cmd	*parse_pipe(t_token *tokens)
 {
 	t_cmd	*first;
@@ -46,7 +46,7 @@ t_cmd	*parse_pipe(t_token *tokens)
 	t_token	*seg;
 	t_token	*cut;
 	t_token	*next;
- 
+
 	first = NULL;
 	last = NULL;
 	seg = tokens;
@@ -65,7 +65,7 @@ t_cmd	*parse_pipe(t_token *tokens)
 	}
 	return (first);
 }
- 
+
 t_cmd	*parse_line(t_token *tokens)
 {
 	if (!tokens)
@@ -77,4 +77,3 @@ t_cmd	*parse_line(t_token *tokens)
 	}
 	return (parse_pipe(tokens));
 }
- 

@@ -6,16 +6,16 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 04:20:38 by elibrahi          #+#    #+#             */
-/*   Updated: 2026/03/21 22:50:22 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:39:20 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
- 
+
 static int	count_words(t_token *tok)
 {
 	int	n;
- 
+
 	n = 0;
 	while (tok)
 	{
@@ -25,12 +25,12 @@ static int	count_words(t_token *tok)
 	}
 	return (n);
 }
- 
+
 int	count_cmd(t_token *tokens)
 {
 	t_token	*tok;
 	int		count;
- 
+
 	if (!tokens)
 		return (0);
 	count = 1;
@@ -56,11 +56,11 @@ static t_token	*handle_redir_tok(t_cmd *cmd, t_token *tok)
 			c_new_redir(tok->type, tok->next->value));
 	return (tok->next->next);
 }
- 
+
 static void	fill_cmd(t_cmd *cmd, t_token *tok)
 {
 	int	i;
- 
+
 	i = 0;
 	while (tok)
 	{
@@ -74,11 +74,11 @@ static void	fill_cmd(t_cmd *cmd, t_token *tok)
 	}
 	cmd->argv[i] = NULL;
 }
- 
+
 t_cmd	*parse_cmd(t_token *tokens)
 {
 	t_cmd	*cmd;
- 
+
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
@@ -94,4 +94,3 @@ t_cmd	*parse_cmd(t_token *tokens)
 	fill_cmd(cmd, tokens);
 	return (cmd);
 }
- 

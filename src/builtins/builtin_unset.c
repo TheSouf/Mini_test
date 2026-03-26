@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:53:43 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/18 21:41:39 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:28:52 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	unset_one(t_shell *shell, char *name)
 {
 	t_env	*current;
 	t_env	*prev;
- 
+
 	prev = NULL;
 	current = shell->env_list;
 	while (current)
@@ -37,12 +37,12 @@ static void	unset_one(t_shell *shell, char *name)
 		current = current->next;
 	}
 }
- 
+
 int	builtin_unset(char **args, t_shell *shell)
 {
 	int	i;
 	int	ret;
- 
+
 	ret = 0;
 	i = 1;
 	while (args[i])

@@ -6,16 +6,16 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:52:52 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/20 19:12:48 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:29:57 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
- 
+
 static char	*get_home(t_shell *shell)
 {
 	t_env	*node;
- 
+
 	node = env_find(shell->env_list, "HOME");
 	if (!node || !node->value)
 	{
@@ -24,11 +24,11 @@ static char	*get_home(t_shell *shell)
 	}
 	return (node->value);
 }
- 
+
 static char	*get_oldpwd(t_shell *shell)
 {
 	t_env	*node;
- 
+
 	node = env_find(shell->env_list, "OLDPWD");
 	if (!node || !node->value)
 	{
@@ -38,7 +38,7 @@ static char	*get_oldpwd(t_shell *shell)
 	ft_putendl_fd(node->value, 1);
 	return (node->value);
 }
- 
+
 static char	*get_target(char **args, t_shell *shell)
 {
 	if (!args[1] || ft_strcmp(args[1], "~") == 0)
@@ -47,7 +47,7 @@ static char	*get_target(char **args, t_shell *shell)
 		return (get_oldpwd(shell));
 	return (args[1]);
 }
- 
+
 static int	do_chdir(char *target, char *old_pwd)
 {
 	if (chdir(target) != -1)
@@ -59,13 +59,13 @@ static int	do_chdir(char *target, char *old_pwd)
 	free(old_pwd);
 	return (1);
 }
- 
+
 int	builtin_cd(char **args, t_shell *shell)
 {
 	char	*old_pwd;
 	char	*new_pwd;
 	char	*target;
- 
+
 	if (args[1] && args[2])
 	{
 		ft_putendl_fd("cd: too many arguments", 2);

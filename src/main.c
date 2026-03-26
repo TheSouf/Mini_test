@@ -6,14 +6,14 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:32:12 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/22 17:17:17 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:41:07 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <readline/readline.h>
 #include <readline/history.h>
- 
+
 /*
 ** run_line : chaine de traitement complete d'une ligne.
 **
@@ -29,7 +29,7 @@ static void	run_line(char *line, t_shell *shell)
 {
 	t_token	*tokens;
 	t_cmd	*cmds;
- 
+
 	tokens = lexer(line);
 	if (!tokens)
 		return ;
@@ -42,11 +42,11 @@ static void	run_line(char *line, t_shell *shell)
 	run_the_pipeline(cmds, shell);
 	free_cmd(cmds);
 }
- 
+
 static void	shell_loop(t_shell *shell)
 {
 	char	*line;
- 
+
 	while (1)
 	{
 		line = readline("minishell$ ");
@@ -61,11 +61,11 @@ static void	shell_loop(t_shell *shell)
 		free(line);
 	}
 }
- 
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
- 
+
 	(void)argc;
 	(void)argv;
 	shell.env_list = env_init_from_envp(envp);

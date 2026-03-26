@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 21:14:49 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/20 18:12:34 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:27:44 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	update_env_var(t_shell *shell, char *name, char *value)
 {
 	t_env	*node;
 	char	*new_val;
- 
+
 	node = env_find(shell->env_list, name);
 	if (node)
 	{
@@ -39,7 +39,7 @@ void	init_shlvl(t_shell *shell)
 	t_env	*node;
 	int		lvl;
 	char	*new_lvl;
- 
+
 	node = env_find(shell->env_list, "SHLVL");
 	if (node && node->value)
 		lvl = ft_atoi(node->value) + 1;

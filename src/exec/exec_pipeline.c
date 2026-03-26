@@ -6,17 +6,17 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 21:33:45 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/22 20:24:44 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:31:49 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
- 
+
 static int	count_the_cmds(t_cmd *cmds)
 {
 	int		n;
 	t_cmd	*cur;
- 
+
 	n = 0;
 	cur = cmds;
 	while (cur)
@@ -26,11 +26,11 @@ static int	count_the_cmds(t_cmd *cmds)
 	}
 	return (n);
 }
- 
+
 static int	open_the_pipes(int (*pipe_fds)[2], int n)
 {
 	int	i;
- 
+
 	i = 0;
 	while (i < n - 1)
 	{
@@ -40,11 +40,11 @@ static int	open_the_pipes(int (*pipe_fds)[2], int n)
 	}
 	return (0);
 }
- 
+
 static void	close_the_pipes(int (*pipe_fds)[2], int n)
 {
 	int	i;
- 
+
 	i = 0;
 	while (i < n - 1)
 	{
@@ -53,14 +53,14 @@ static void	close_the_pipes(int (*pipe_fds)[2], int n)
 		i++;
 	}
 }
- 
+
 static int	fork_the_processes(t_cmd *cmds, int (*pipe_fds)[2],
 				pid_t *pids, t_shell *shell)
 {
 	t_cmd	*cur;
 	int		i;
 	int		n;
- 
+
 	n = count_the_cmds(cmds);
 	i = 0;
 	cur = cmds;
@@ -76,13 +76,13 @@ static int	fork_the_processes(t_cmd *cmds, int (*pipe_fds)[2],
 	}
 	return (0);
 }
- 
+
 void	run_the_pipeline(t_cmd *cmds, t_shell *shell)
 {
 	int		n;
 	int		(*pipe_fds)[2];
 	pid_t	*pids;
- 
+
 	if (!cmds || !cmds->argv || !cmds->argv[0])
 		return ;
 	if (!cmds->next && is_builtin(cmds->argv[0]))

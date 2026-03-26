@@ -6,16 +6,16 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:53:20 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/18 21:41:32 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:27:16 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
- 
+
 static int	is_valid_identifier(char *name)
 {
 	int	i;
- 
+
 	if (!name || (!ft_isalpha(name[0]) && name[0] != '_'))
 		return (0);
 	i = 1;
@@ -27,11 +27,11 @@ static int	is_valid_identifier(char *name)
 	}
 	return (1);
 }
- 
+
 static void	print_export_list(t_shell *shell)
 {
 	t_env	*cur;
- 
+
 	cur = shell->env_list;
 	while (cur)
 	{
@@ -47,12 +47,12 @@ static void	print_export_list(t_shell *shell)
 		cur = cur->next;
 	}
 }
- 
+
 static void	set_or_update(t_shell *shell, char *name, char *value)
 {
 	t_env	*node;
 	char	*new_val;
- 
+
 	node = env_find(shell->env_list, name);
 	if (node)
 	{
@@ -72,12 +72,12 @@ static void	set_or_update(t_shell *shell, char *name, char *value)
 			env_add_back(&shell->env_list, node);
 	}
 }
- 
+
 static int	export_one(char *arg, t_shell *shell)
 {
 	char	*eq;
 	char	*name;
- 
+
 	eq = ft_strchr(arg, '=');
 	if (eq)
 		name = ft_substr(arg, 0, eq - arg);
@@ -100,12 +100,12 @@ static int	export_one(char *arg, t_shell *shell)
 	free(name);
 	return (0);
 }
- 
+
 int	builtin_export(char **args, t_shell *shell)
 {
 	int	i;
 	int	ret;
- 
+
 	if (!args[1])
 	{
 		print_export_list(shell);
