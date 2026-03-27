@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:32:12 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/26 19:41:07 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/27 20:46:41 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,30 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-/*
-** run_line : chaine de traitement complete d'une ligne.
-**
-** Ordre critique :
-**   1. lexer()          : tokenise avec quotes intactes
-**   2. expand_tokens()  : expande $VAR/$? en respectant les quotes
-**                         (single quotes bloquent, double quotes permettent)
-**   3. remove_quotes()  : supprime les delimiteurs de quotes
-**   4. parse_line()     : construit la liste de t_cmd
-**   5. run_the_pipeline(): execute
-*/
+static void	handle_sigint(int signo)
+{
+	(void)signo;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_kill_text(0, rl_end);
+	rl_redisplay();
+}
+
+static void	init_signals(void)
+{
+	struct sigaction	sa;
+
+	sigemptyset(&sa.sa_mask);
+	sa.sa_handler = handle_sigint;
+	sa.sa_flags = 0;
+	sigaction(SIGINT, &sa, NULL);
+	struct sigaction	ignore_quit;
+	sigemptyset(&ignore_quit.sa_mask);
+	ignore_quit.sa_handler = SIG_IGN;
+	ignore_quit.sa_flags = 0;
+	sigaction(SIGQUIT, &ignore_quit, NULL);
+}
+
 static void	run_line(char *line, t_shell *shell)
 {
 	t_token	*tokens;
@@ -76,6 +89,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	init_shlvl(&shell);
+	init_signals();
 	shell_loop(&shell);
 	env_free_list(shell.env_list);
 	return (shell.last_exit_code);

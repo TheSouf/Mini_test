@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 21:29:04 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/26 19:36:08 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/27 20:46:41 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	run_child_processus(t_cmd *cmd, int i, int n,
 		dup2(fd_write, STDOUT_FILENO);
 		close(fd_write);
 	}
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	execute_the_cmd(cmd, shell);
 }
 
