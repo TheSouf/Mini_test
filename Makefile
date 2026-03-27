@@ -6,7 +6,7 @@
 #    By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/06 20:13:24 by sofkhali          #+#    #+#              #
-#    Updated: 2026/03/22 17:17:01 by sofkhali         ###   ########.fr        #
+#    Updated: 2026/03/27 19:14:57 by sofkhali         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS		= $(SRCS_DIR)/main.c \
 		  $(EXEC_DIR)/exec_pipeline.c \
 		  $(EXEC_DIR)/utils_env.c \
 		  $(EXEC_DIR)/utils_env2.c \
+		  $(EXEC_DIR)/signal_handling.c \
 		  $(PARSING_DIR)/lexer.c \
 		  $(PARSING_DIR)/lexer_redir.c \
 		  $(PARSING_DIR)/token.c \

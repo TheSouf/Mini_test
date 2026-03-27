@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:46:07 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/26 19:18:36 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/27 19:12:31 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <signal.h>
 
 # include "../libft/libft.h"
 # include "lexer.h"
