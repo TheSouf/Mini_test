@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 20:15:01 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/27 19:15:30 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/27 19:49:45 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,5 @@ void	env_free_list(t_env *lst);
 /* utils_env2.c */
 t_env	*env_init_from_envp(char **envp);
 char	**env_to_array(t_env *lst);
-
-void	setup_signal_handlers(void);
-void	restore_signal_defaults_for_child(void);
 
 #endif
