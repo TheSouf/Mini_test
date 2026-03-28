@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:32:12 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/28 17:24:49 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/28 18:13:32 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	shell_loop(t_shell *shell)
 {
 	char	*line;
 
-	while (1)
+	while (!shell->exit_shell)
 	{
 		line = readline("minishell$ ");
 		if (!line)
@@ -83,6 +83,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	shell.env_list = env_init_from_envp(envp);
 	shell.last_exit_code = 0;
+	shell.exit_shell = 0;
 	if (!shell.env_list)
 	{
 		write(2, "minishell: failed to init env\n", 30);

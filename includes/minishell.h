@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:46:07 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/27 19:12:31 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/28 18:14:31 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_shell
 {
 	t_env	*env_list;
 	int		last_exit_code;
+	int		exit_shell;
 }	t_shell;
 
 #endif
