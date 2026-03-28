@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 21:33:45 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/26 19:31:49 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/28 17:24:49 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,14 @@ static void	close_the_pipes(int (*pipe_fds)[2], int n)
 static int	fork_the_processes(t_cmd *cmds, int (*pipe_fds)[2],
 				pid_t *pids, t_shell *shell)
 {
-	t_cmd	*cur;
-	int		i;
-	int		n;
+	t_cmd			*cur;
+	int				i;
+	int				n;
+	t_pipe_info		pipe_info;
 
 	n = count_the_cmds(cmds);
+	pipe_info.fds = pipe_fds;
+	pipe_info.n = n;
 	i = 0;
 	cur = cmds;
 	while (cur)
@@ -70,7 +73,7 @@ static int	fork_the_processes(t_cmd *cmds, int (*pipe_fds)[2],
 		if (pids[i] == -1)
 			return (-1);
 		if (pids[i] == 0)
-			run_child_processus(cur, i, n, pipe_fds, shell);
+			run_child_processus(cur, i, &pipe_info, shell);
 		cur = cur->next;
 		i++;
 	}
@@ -91,8 +94,8 @@ void	run_the_pipeline(t_cmd *cmds, t_shell *shell)
 		return ;
 	}
 	n = count_the_cmds(cmds);
-	pipe_fds = malloc(sizeof(int[2]) * n);
-	pids = malloc(sizeof(pid_t) * n);
+	pipe_fds = malloc(sizeof(*pipe_fds) * n);
+	pids = malloc(sizeof(*pids) * n);
 	if (!pipe_fds || !pids)
 		return (free(pipe_fds), free(pids), (void)0);
 	if (open_the_pipes(pipe_fds, n) == -1)

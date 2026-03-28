@@ -6,13 +6,14 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 21:29:04 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/27 20:46:41 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/28 17:24:49 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	close_all_pipes(int (*pipe_fds)[2], int n, int fd_read, int fd_write)
+static void	close_all_pipes(int (*pipe_fds)[2], int n, int fd_read,
+				int fd_write)
 {
 	int	i;
 
@@ -27,8 +28,8 @@ static void	close_all_pipes(int (*pipe_fds)[2], int n, int fd_read, int fd_write
 	}
 }
 
-void	run_child_processus(t_cmd *cmd, int i, int n,
-			int (*pipe_fds)[2], t_shell *shell)
+void	run_child_processus(t_cmd *cmd, int i, t_pipe_info *pipes,
+				t_shell *shell)
 {
 	int	fd_read;
 	int	fd_write;
@@ -36,12 +37,12 @@ void	run_child_processus(t_cmd *cmd, int i, int n,
 	if (i == 0)
 		fd_read = STDIN_FILENO;
 	else
-		fd_read = pipe_fds[i - 1][0];
-	if (i == n - 1)
+		fd_read = pipes->fds[i - 1][0];
+	if (i == pipes->n - 1)
 		fd_write = STDOUT_FILENO;
 	else
-		fd_write = pipe_fds[i][1];
-	close_all_pipes(pipe_fds, n, fd_read, fd_write);
+		fd_write = pipes->fds[i][1];
+	close_all_pipes(pipes->fds, pipes->n, fd_read, fd_write);
 	if (fd_read != STDIN_FILENO)
 	{
 		dup2(fd_read, STDIN_FILENO);

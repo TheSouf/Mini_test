@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 20:15:01 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/27 19:49:45 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/28 17:24:49 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ typedef struct s_shell	t_shell;
 typedef struct s_cmd	t_cmd;
 typedef struct s_env	t_env;
 typedef struct s_redir	t_redir;
+typedef struct s_pipe_info
+{
+	int	(*fds)[2];
+	int	n;
+}				t_pipe_info;
 
 /* builtins */
 int		builtin_echo(char **args, t_shell *shell);
@@ -46,8 +51,8 @@ int		apply_the_redirs(t_redir *rd_in, t_redir *rd_out);
 
 /* exec_process.c */
 void	run_builtin_with_redirs(t_cmd *cmd, t_shell *shell);
-void	run_child_processus(t_cmd *cmd, int i, int n,
-			int (*pipe_fds)[2], t_shell *shell);
+void	run_child_processus(t_cmd *cmd, int i,
+			t_pipe_info *pipes, t_shell *shell);
 int		get_exit_status(int status);
 void	wait_the_processes(pid_t *pids, int n, t_shell *shell);
 

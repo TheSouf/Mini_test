@@ -6,7 +6,7 @@
 /*   By: sofkhali <sofkhali@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:32:12 by sofkhali          #+#    #+#             */
-/*   Updated: 2026/03/27 20:46:41 by sofkhali         ###   ########.fr       */
+/*   Updated: 2026/03/28 17:24:49 by sofkhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static void	handle_sigint(int signo)
 static void	init_signals(void)
 {
 	struct sigaction	sa;
+	struct sigaction	ignore_quit;
 
 	sigemptyset(&sa.sa_mask);
 	sa.sa_handler = handle_sigint;
 	sa.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
-	struct sigaction	ignore_quit;
 	sigemptyset(&ignore_quit.sa_mask);
 	ignore_quit.sa_handler = SIG_IGN;
 	ignore_quit.sa_flags = 0;
